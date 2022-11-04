@@ -23,7 +23,7 @@ rend = Renderer(screen)
 
 rend.setShaders(vertex_shader, fragment_shader)
 
-face = Model("model.obj", "model.bmp")
+face = Model("./model.obj", "model.bmp")
 
 face.position.z = -5
 
