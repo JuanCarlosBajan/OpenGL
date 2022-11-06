@@ -50,20 +50,8 @@ while isRunning:
             elif event.key == pygame.K_q:
                 rend.wireframeMode()
 
-    if keys[K_1]:
-        rend.setShaders(vertex_shader, toon_shader)
-
     if keys[K_2]:
-        rend.setShaders(big_shader, reflection_shader)
-
-    if keys[K_3]:
-        rend.setShaders(x_shader, toon_shader)
-
-    if keys[K_4]:
-        rend.setShaders(small_shader, duende_shader)
-
-    if keys[K_5]:
-        rend.setShaders(hulk_shader, tiktok_shader)
+        rend.setShaders(vertex_shader, toon_shader)
 
 
 
