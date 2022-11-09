@@ -236,7 +236,13 @@ class Renderer(object):
 
             glUniform1f(glGetUniformLocation(self.active_shader, "time",), self.time)
 
-            glUniform1f(glGetUniformLocation(self.active_shader, "random",), random())
+            r = random()
+            g = random()
+            b = random()
+
+            glUniform1f(glGetUniformLocation(self.active_shader, "randomr",), r)
+            glUniform1f(glGetUniformLocation(self.active_shader, "randomg",), g)
+            glUniform1f(glGetUniformLocation(self.active_shader, "randomb",), b)
 
             glUniform3fv( glGetUniformLocation(self.active_shader, "pointLight"), 1, glm.value_ptr(self.pointLight))
 

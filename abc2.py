@@ -57,7 +57,7 @@ while isRunning:
         rend.setShaders(big_shader, reflection_shader)
 
     if keys[K_3]:
-        rend.setShaders(x_shader, toon_shader)
+        rend.setShaders(x_shader, nothing_shader)
 
     if keys[K_4]:
         rend.setShaders(small_shader, duende_shader)

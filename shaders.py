@@ -187,7 +187,7 @@ void main()
 
 
     if(intensity > 0.9) {       
-        fragColor = texture(tex, UVs) * 1;
+        fragColor = texture(tex, UVs) * 1.0;
     }
     else if(intensity > 0.8) {       
         fragColor = texture(tex, UVs) * 0.8;
@@ -200,6 +200,9 @@ void main()
     }
     else if(intensity > 0.2) {       
         fragColor = texture(tex, UVs) * 0.2;
+    }
+    else{
+        fragColor = vec4(0,0,0,0);
     }
 
 }
@@ -270,6 +273,31 @@ void main()
 
     fragColor = vec4(vec3(cos(1*intensity*UVs.x*norms.x*100),sin(1*intensity*UVs.x*norms.x*100),sin(1*intensity*UVs.x*norms.x*100)),1.0);
 
+
+}
+'''
+
+nothing_shader ='''
+#version 450 core
+out vec4 fragColor;
+
+uniform float randomr;
+uniform float randomg;
+uniform float randomb;
+
+in vec2 UVs;
+in vec3 norms;
+in vec3 pos;
+
+uniform vec3 pointLight;
+
+uniform sampler2D tex;
+
+void main()
+{
+    float intensity = dot(norms, normalize(pointLight - pos));
+    
+    fragColor = vec4(sin(randomr*100)*norms.x,cos(randomg*100)*norms.y,sin(randomb*100)*norms.z,1.0);
 
 }
 '''
