@@ -28,6 +28,8 @@ face = Model("./models/face.obj", "./models/textures/face.bmp")
 skull = Model("./models/skull.obj", "./models/textures/bn.bmp")
 stone = Model("./models/Stone.obj", "./models/textures/bn.bmp")
 cat = Model("./models/cat.obj", "./models/textures/cat.bmp")
+dog = Model("./models/dog.obj", "./models/textures/dog.bmp")
+fish = Model("./models/fish.obj", "./models/textures/fish.bmp")
 
 
 face.position.z = -5
@@ -45,6 +47,15 @@ cat.position.z=-15
 cat.position.y = -3
 cat.scale = glm.vec3(0.2,0.2,0.2)
 cat.rotation.x = -90
+
+dog.position.z=-15
+dog.position.y = -3
+dog.scale = glm.vec3(0.2,0.2,0.2)
+dog.rotation.x = -90
+
+fish.position.z=-15
+fish.scale = glm.vec3(0.2,0.2,0.2)
+fish.rotation.x = -90
 
 rend.scene.append( face )
 
@@ -97,10 +108,12 @@ while isRunning:
         rend.scene.append(cat)
 
     if keys[K_v]:
-        pass
+        rend.scene.pop()
+        rend.scene.append(dog)
 
     if keys[K_b]:
-        pass
+        rend.scene.pop()
+        rend.scene.append(fish)
 
 
     if keys[K_a]:
