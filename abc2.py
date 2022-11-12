@@ -1,6 +1,7 @@
 from cmath import acos, asin, pi, sin, sqrt
 import pygame
 from pygame.locals import *
+import glm #pip install PyGLM
 
 from shaders import *
 
@@ -23,9 +24,27 @@ rend = Renderer(screen)
 
 rend.setShaders(vertex_shader, fragment_shader)
 
-face = Model("./model.obj", "model.bmp")
+face = Model("./models/face.obj", "./models/textures/face.bmp")
+skull = Model("./models/skull.obj", "./models/textures/bn.bmp")
+stone = Model("./models/Stone.obj", "./models/textures/bn.bmp")
+cat = Model("./models/cat.obj", "./models/textures/cat.bmp")
+
 
 face.position.z = -5
+
+skull.position.z=-15
+skull.position.y = -2
+skull.scale = glm.vec3(0.2,0.2,0.2)
+skull.rotation.x = -90
+
+stone.position.z = -10
+stone.position.y = -2
+stone.scale = glm.vec3(0.4,0.4,0.4)
+
+cat.position.z=-15
+cat.position.y = -3
+cat.scale = glm.vec3(0.2,0.2,0.2)
+cat.rotation.x = -90
 
 rend.scene.append( face )
 
@@ -65,9 +84,27 @@ while isRunning:
     if keys[K_5]:
         rend.setShaders(hulk_shader, tiktok_shader)
 
+    if keys[K_z]:
+        rend.scene.pop()
+        rend.scene.append(skull)
+
+    if keys[K_x]:
+        rend.scene.pop()
+        rend.scene.append(stone)
+
+    if keys[K_c]:
+        rend.scene.pop()
+        rend.scene.append(cat)
+
+    if keys[K_v]:
+        pass
+
+    if keys[K_b]:
+        pass
+
 
     if keys[K_a]:
-        distance = abs(face.position.z)
+        distance = abs(rend.scene[0].position.z)
         ad_value += (1 * deltaTime)%(2*pi)
         rend.camPosition.x = (sin(ad_value) * distance).real
         ws_value += (1 * deltaTime)%(2*pi)
@@ -86,7 +123,7 @@ while isRunning:
             rend.camRotation.y = (((acos(-(rend.camPosition.x/sqrt(rend.camPosition.x**2 + (rend.camPosition.z +distance)**2)))-pi/2)*(180/pi)).real)
 
     elif keys[K_d]:
-        distance = abs(face.position.z)
+        distance = abs(rend.scene[0].position.z)
         ad_value -= (1 * deltaTime)%(2*pi)
         rend.camPosition.x = (sin(ad_value) * distance).real
         ws_value -= (1 * deltaTime)%(2*pi)
@@ -105,14 +142,14 @@ while isRunning:
             rend.camRotation.y = (((acos(-(rend.camPosition.x/sqrt(rend.camPosition.x**2 + (rend.camPosition.z +distance)**2)))-pi/2)*(180/pi)).real)
 
     if keys[K_w]:
-        distance = abs(face.position.z)
+        distance = abs(rend.scene[0].position.z)
         if(distance > 1):
-            face.position.z += deltaTime
+            rend.scene[0].position.z += deltaTime
 
     elif keys[K_s]:
-        distance = abs(face.position.z)
+        distance = abs(rend.scene[0].position.z)
         if(distance < 10):
-            face.position.z -= deltaTime
+            rend.scene[0].position.z -= deltaTime
         
     if keys[K_SPACE]:
         if(rend.camPosition.y < 2):
