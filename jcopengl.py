@@ -1,4 +1,4 @@
-from random import random
+from random import random, randrange
 import glm #pip install PyGLM
 
 from numpy import array, float32
@@ -99,6 +99,7 @@ class Model(object):
         return translateMat * rotationMat * scaleMat
 
     def render(self):
+        
 
         glBindBuffer(GL_ARRAY_BUFFER, self.VBO)
         glBindVertexArray(self.VAO)
@@ -159,8 +160,10 @@ class Model(object):
 
 
 class Renderer(object):
-    def __init__(self, screen):
+
+    def __init__(self, screen, bg):
         self.screen = screen
+        screen.blit(bg,[0,0])
         _, _, self.width, self.height = screen.get_rect()
 
         glEnable(GL_DEPTH_TEST)
@@ -168,12 +171,18 @@ class Renderer(object):
 
         self.filledMode()
 
+
         self.scene = []
         self.active_shader = None
 
         self.pointLight = glm.vec3(0,0,0)
         self.value = 0
         self.time = 0
+        self.target = glm.vec3(0,0,0)
+
+        self.r = 0.2
+        self.g = 0.2
+        self.b = 1
 
         # ViewMatrix
         self.camPosition = glm.vec3(0,0,0)
@@ -216,11 +225,17 @@ class Renderer(object):
             self.active_shader = None
 
     def update(self):
-        self.viewMatrix = self.getViewMatrix()
+            #self.viewMatrix = self.getViewMatrix()
+
+            self.viewMatrix = glm.lookAt(self.camPosition, self.target, glm.vec3(0,1,0))
 
     def render(self):
-        glClearColor(0.2,0.2,0.2, 1)
+        glClearColor(self.r,self.g,self.b, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        if self.time%3 < 0.15:
+            self.r = random()
+            self.g = random()
+            self.b = random()
 
         if self.active_shader is not None:
             glUseProgram(self.active_shader)

@@ -28,7 +28,5 @@ class Obj(object):
                 self.faces.append([  list(map(int , list(filter(lambda x: x is not '', vert.split('/'))))) for vert in value.split(' ')] )
 
 
-       
-
 
             
